@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="styl.css">
+    <title>Odczyt danych</title>
+</head>
+<body>
+    <div id="prostokat" class="shadow">
+    <form action="kalkulator.php" method="get">
+        <fieldset >
+            <legend>Podaj wielkość pliku do transferu:</legend>
+            <input id="pojemność" name="pojemnosc" type="text" placeholder="np. 777 MiB"> 
+            <button type="button" id="button">Pokaż wybór medium transmisyjnego.</button>
+        </fieldset>
+    </div>
+    <div class="space"><br></div>
+        <div id="prostokat2" class="shadow" style="display: none;">
+        <div id="form" action="" method="get" style="display: none;">
+        <fieldset>
+            <legend>Wybierz medium transmisyjne:</legend>
+            <input type="radio" id="lan" name="option" value="LAN" onclick="pokazywacz()"><label>LAN</label><br>
+            <input type="radio" id="odd" name="option" value="ODD" onclick="pokazywacz()"><label>ODD</label><br>
+            <select id="select1" name="select1" style="display:none">
+                <option name="medium1" value="Ethernet">Ethernet</option>
+                <option name="medium1" value="FastEthernet">Fast Ethernet</option>
+                <option name="medium1" value="GigabitEthernet">Gigabit Ethernet</option> 
+            </select>
+            <select id="select2" name="select2" style="display:none">
+                <option name="medium2" value="CD">CD</option>
+                <option name="medium2" value="DVD">DVD</option>
+                <option name="medium2" value="Blu">Blu-ray</option> 
+            </select>
+            <input style="display: none;" type="range" name="speed_range" id="speed_range" min="2" value="24" max="52" step="2">
+            <div name="wartosc_suwak" id="wartosc_suwak" style="color:white; display:none">24x</div>
+            <button type="submit">Oblicz czas transferu...</button>
+        </fieldset>
+    </div>
+    </div>
+    <script>
+            document.getElementById("button").addEventListener("click", function(){
+            document.getElementById("prostokat2").style.display = "block";
+            });
+            document.getElementById("button").addEventListener("click", function(){
+            document.getElementById("form").style.display = "block";
+            });
+            function pokazywacz(){
+                if(document.getElementById('lan').checked==true){
+                    document.getElementById('select1').style.display='block';
+                    document.getElementById('select2').style.display='none';
+                    document.getElementById('speed_range').style.display='none';
+                    document.getElementById('wartosc_suwak').style.display='none';
+                }
+                else if(document.getElementById('odd').checked==true){
+                    document.getElementById('select2').style.display='block';
+                    document.getElementById('select1').style.display='none';
+                    document.getElementById('speed_range').style.display='block';
+                    document.getElementById('wartosc_suwak').style.display='block';
+                }
+            }
+
+            var input = document.getElementById("speed_range");
+            var allowedValues = [2,4,8,12,16,24,40,42,48,52]; 
+            input.addEventListener("input", function() {
+            var closestValue = allowedValues.reduce(function(prev, curr) {
+                return (Math.abs(curr - input.value) < Math.abs(prev - input.value) ? curr : prev);
+            });
+            input.value = closestValue;
+            document.getElementById("wartosc_suwak").innerHTML= closestValue +"x";
+            });
+    </script>
+</body>
+</html>
