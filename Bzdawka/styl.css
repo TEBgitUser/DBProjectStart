@@ -6,10 +6,9 @@ fieldset{
     background-color: #072b4fff;
     box-sizing: border-box;
     border: 2px solid white;
+    color: red;
 }
-form{
-    background-color: #072b4fff;
-}
+
 legend{
     color: white;
     background-color: #86a8d2ff;
